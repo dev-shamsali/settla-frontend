@@ -1,0 +1,40 @@
+name: frontend-ci
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci --legacy-peer-deps
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+        env: { NEXT_PUBLIC_API_URL: http://localhost:4000 }
+      - run: npm audit --omit=dev --audit-level=high
+  e2e:
+    needs: verify
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:7
+        ports: ["27017:27017"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - name: Check out backend (separate repository)
+        uses: actions/checkout@v4
+        with: { repository: YOUR_ORG/settla-backend, path: backend, token: "${{ secrets.BACKEND_REPO_TOKEN }}" }
+      - run: cd backend && npm ci
+      - name: Start backend against service Mongo
+        run: |
+          cd backend && npm run seed && (AUTH_RATE_LIMIT=1000 npm start &) && sleep 8
+        env:
+          MONGODB_URI: mongodb://localhost:27017
+          JWT_ACCESS_SECRET: ci-access-secret-0123456789abcdef0123456789
+          JWT_REFRESH_SECRET: ci-refresh-secret-0123456789abcdef012345678
+          ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      - run: npm ci --legacy-peer-deps && npx playwright install --with-deps chromium && npm run build && npm run test:e2e

@@ -1,0 +1,16 @@
+import { chromium } from "@playwright/test";
+const out = process.argv[2];
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
+const p = await ctx.newPage();
+await p.goto("http://localhost:3000/"); await p.waitForTimeout(800); await p.screenshot({ path: out + "/landing.png" });
+await p.goto("http://localhost:3000/login");
+await p.getByLabel("Work email").fill("tenant_admin@urbanstep.test"); await p.getByLabel("Password").fill("Settla!Demo123"); await p.getByRole("button", { name: "Sign in" }).click();
+await p.waitForURL(/dashboard/); await p.waitForTimeout(1800); await p.screenshot({ path: out + "/dashboard.png" });
+await p.goto("http://localhost:3000/cases"); await p.waitForTimeout(1200); await p.screenshot({ path: out + "/cases.png" });
+await p.getByRole("row").nth(1).click(); await p.waitForTimeout(1800); await p.screenshot({ path: out + "/case.png", fullPage: true });
+const m = await b.newContext({ viewport: { width: 390, height: 844 } }); const mp = await m.newPage();
+await mp.goto("http://localhost:3000/login");
+await mp.getByLabel("Work email").fill("tenant_admin@urbanstep.test"); await mp.getByLabel("Password").fill("Settla!Demo123"); await mp.getByRole("button", { name: "Sign in" }).click();
+await mp.waitForURL(/dashboard/); await mp.waitForTimeout(1500); await mp.screenshot({ path: out + "/mobile-dashboard.png" });
+await b.close();
