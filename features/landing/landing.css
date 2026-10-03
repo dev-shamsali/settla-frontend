@@ -1,0 +1,65 @@
+/* Scoped to the landing page only. Transform/opacity animations only; everything decorative is disabled for reduced motion. */
+.landing {
+  --l-bg: #050505;
+  --l-border: rgba(255, 255, 255, 0.12);
+  --l-border-strong: rgba(255, 255, 255, 0.18);
+  --l-ok: #5fbf8a;
+  --l-warn: #d9a441;
+  color: #fff;
+  background: var(--l-bg);
+  min-height: 100svh;
+  overflow-x: clip;
+}
+.landing :focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 6px; }
+
+/* ---- fixed cinematic background (isolated; never re-renders with page state) ---- */
+.l-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: var(--l-bg); contain: strict; }
+.l-bg__poster {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(60% 50% at 70% 18%, rgba(255, 255, 255, 0.10), transparent 70%),
+    radial-gradient(50% 45% at 12% 85%, rgba(255, 255, 255, 0.05), transparent 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #050505 60%, #080808 100%);
+}
+.l-bg__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 900ms ease-out; will-change: opacity; }
+.l-bg__video[data-ready="true"] { opacity: 0.58; }
+.l-bg__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0.32) 45%, rgba(0, 0, 0, 0.5) 100%); }
+.l-bg__grain {
+  position: absolute; inset: 0; opacity: 0.03;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.l-content { position: relative; z-index: 1; }
+
+/* ---- reveal ---- */
+.l-reveal { opacity: 0; transform: translateY(24px); transition: opacity 650ms ease-out, transform 650ms ease-out; }
+.l-reveal.is-visible { opacity: 1; transform: none; }
+
+/* ---- glass (used sparingly) ---- */
+.l-glass { background: rgba(18, 18, 18, 0.55); border: 1px solid var(--l-border); } /* translucent, NO blur: backdrop-filter over the scrubbed video cost ~10ms/frame */
+.l-glass--blur { -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); } /* used on the single hero card only */
+.l-nav { background: rgba(5, 5, 5, 0.78); border-bottom: 1px solid var(--l-border); }
+.l-label { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
+
+/* ---- status dot + card check sequence ---- */
+@keyframes l-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.l-dot { animation: l-pulse 1.8s ease-in-out infinite; }
+@keyframes l-check-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.l-check { opacity: 0; animation: l-check-in 500ms ease-out forwards; }
+
+/* ---- product flow: thin lines with a travelling highlight ---- */
+.l-flow-line { position: relative; background: var(--l-border-strong); overflow: hidden; }
+.l-flow-line--v { width: 1px; height: 28px; margin: 0 auto; }
+.l-flow-line--h { height: 1px; width: 100%; min-width: 14px; }
+.l-flow-line::after { content: ""; position: absolute; background: rgba(255, 255, 255, 0.9); will-change: transform; }
+.l-flow-line--v::after { left: 0; top: 0; width: 1px; height: 10px; animation: l-run-v 2.4s linear infinite; }
+.l-flow-line--h::after { top: 0; left: 0; height: 1px; width: 14px; animation: l-run-h 2.4s linear infinite; }
+@keyframes l-run-v { from { transform: translateY(-12px); } to { transform: translateY(30px); } }
+@keyframes l-run-h { from { transform: translateX(-16px); } to { transform: translateX(110px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .l-reveal { opacity: 1; transform: none; transition: none; }
+  .l-dot, .l-flow-line::after { animation: none; }
+  .l-flow-line::after { display: none; }
+  .l-check { animation: none; opacity: 1; }
+  .l-bg__video { display: none; }
+}

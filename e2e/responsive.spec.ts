@@ -14,3 +14,17 @@ test("mobile: drawer nav, no horizontal overflow on key pages", async ({ page })
   await page.getByRole("button", { name: "Open menu" }).click();
   await expect(page.getByRole("navigation", { name: "Primary" })).toBeVisible();
 });
+
+test("mobile: landing has no horizontal overflow and a working menu", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  for (const y of [0, 900, 1800, 3000, 99999]) {
+    await page.evaluate((top) => window.scrollTo(0, top), y);
+    await page.waitForTimeout(250);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `landing overflows at scrollY ${y}`).toBeLessThanOrEqual(1);
+  }
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.getByRole("button", { name: "Open menu" }).click();
+  await expect(page.getByRole("link", { name: "Security" }).first()).toBeVisible();
+});

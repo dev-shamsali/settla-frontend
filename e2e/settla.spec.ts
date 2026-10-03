@@ -103,12 +103,33 @@ test("16. RBAC: viewer cannot see admin/approve controls; permission-denied stat
   await expect(page.getByText("Permission denied")).toBeVisible();
 });
 
-test("17. landing page renders and links to login", async ({ page }) => {
+test("17. landing page: dark hero, sections, in-page navigation, sign-in link, no console errors", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("console", (m) => { if (m.type() === "error" && !/favicon|Failed to load resource|ERR_/.test(m.text())) errors.push(m.text()); });
+  page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("money debited, no order");
-  await expect(page.getByText("27 seconds, start to verified finish.")).toBeVisible();
-  await page.getByRole("link", { name: "Sign in" }).click();
+  await expect(page).toHaveTitle("Settla — AI-Powered Payment Resolution");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Resolve. Verify.");
+  await expect(page.getByRole("link", { name: "Request a Demo" }).first()).toBeVisible();
+  await expect(page.getByLabel(/Illustrative Rhea resolution card/)).toBeVisible();
+  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "How it works" }).click();
+  await expect(page.getByRole("heading", { name: /From payment issue/ })).toBeInViewport();
+  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Security" }).click();
+  await expect(page.getByRole("heading", { name: /Automation without/ })).toBeInViewport();
+  await expect(page.getByText("Human Escalation")).toBeVisible();
+  await page.getByRole("link", { name: "Sign in" }).first().click();
   await expect(page).toHaveURL(/\/login/);
+  expect(errors).toEqual([]);
+});
+
+test("17b. landing: reduced motion shows static background and all content immediately", async ({ browser }) => {
+  const ctx = await browser.newContext({ reducedMotion: "reduce" });
+  const page = await ctx.newPage();
+  await page.goto("/");
+  await expect(page.getByText("Rhea investigates the context")).toBeVisible();
+  const videoOpacity = await page.locator(".l-bg__video").evaluate((v) => getComputedStyle(v).display);
+  expect(videoOpacity).toBe("none");
+  await ctx.close();
 });
 
 test("18. no console errors on core pages", async ({ page }) => {
