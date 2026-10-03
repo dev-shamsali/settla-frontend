@@ -6,22 +6,22 @@
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 
-  --color-cream: #f4f1ec;          /* light text on dark surfaces */
-  --color-paper: #0c0c0c;          /* sticky table headers etc. */
-  --color-ink: #f5f5f5;            /* primary text */
-  --color-ink-soft: #cfcfcf;
-  --color-ink-muted: #8f8f8f;
-  --color-line: rgb(255 255 255 / 0.12);
+  --color-cream: #ffffff;          /* light text on dark surfaces */
+  --color-paper: #1a1a1c;          /* sticky table headers etc. */
+  --color-ink: #ffffff;            /* primary text */
+  --color-ink-soft: #e4e4e7;
+  --color-ink-muted: #b4b4ba;
+  --color-line: rgb(255 255 255 / 0.15);
 
-  --color-burgundy-50: #241014;
-  --color-burgundy-100: #34181e;
-  --color-burgundy-200: #5a2630;
-  --color-burgundy-400: #c46a76;
-  --color-burgundy-500: #d0606f;
-  --color-burgundy-600: #b4475a;   /* primary buttons / links */
-  --color-burgundy-700: #f0b8c0;   /* accent text on dark */
-  --color-burgundy-800: #f7d3d8;
-  --color-burgundy-900: #ffe9ec;
+  --color-burgundy-50: #2c2c30;
+  --color-burgundy-100: #37373c;
+  --color-burgundy-200: #55555c;
+  --color-burgundy-400: #c4c4cb;
+  --color-burgundy-500: #d8d8de;
+  --color-burgundy-600: #f1f1f3;   /* links / accents (neutral, no hue) */
+  --color-burgundy-700: #ffffff;   /* accent text */
+  --color-burgundy-800: #ffffff;
+  --color-burgundy-900: #000000;
 
   --color-ok: #6fcf97;
   --color-ok-bg: #12261a;
@@ -35,37 +35,37 @@
 
 :root { color-scheme: dark; }
 
-html { background: #070707; }
+html { background: #1c1c1e; }
 body {
   min-height: 100vh;
   color: var(--color-ink);
   font-family: var(--font-sans);
   background:
-    radial-gradient(60rem 40rem at 8% -10%, rgb(180 71 90 / 0.14), transparent 60%),
+    radial-gradient(60rem 40rem at 8% -10%, rgb(255 255 255 / 0.07), transparent 60%),
     radial-gradient(50rem 36rem at 105% 10%, rgb(255 255 255 / 0.04), transparent 60%),
-    #070707;
+    #1c1c1e;
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
 
 /* Panels: translucent, thin border, no heavy blur (cheap to paint). Blur only on overlays. */
-.glass { background: rgb(255 255 255 / 0.045); border: 1px solid rgb(255 255 255 / 0.11); box-shadow: 0 10px 30px -20px rgb(0 0 0 / 0.7); }
+.glass { background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.13); box-shadow: 0 10px 30px -20px rgb(0 0 0 / 0.7); }
 .glass-strong {
-  background: rgb(22 22 22 / 0.92);
+  background: rgb(44 44 47 / 0.96);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border: 1px solid rgb(255 255 255 / 0.14);
   box-shadow: 0 24px 60px -24px rgb(0 0 0 / 0.8);
 }
-.glass-dark { background: rgb(9 9 9 / 0.96); border-right: 1px solid rgb(255 255 255 / 0.08); }
-.surface { background: rgb(255 255 255 / 0.035); border: 1px solid var(--color-line); }
+.glass-dark { background: rgb(21 21 23 / 0.98); border-right: 1px solid rgb(255 255 255 / 0.08); }
+.surface { background: rgb(255 255 255 / 0.05); border: 1px solid var(--color-line); }
 .hairline { border-color: var(--color-line); }
 
 .tabular { font-variant-numeric: tabular-nums; }
 .eyebrow { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-ink-muted); font-weight: 600; }
 
-:focus-visible { outline: 2px solid var(--color-burgundy-400); outline-offset: 2px; border-radius: 6px; }
-select option { background: #161616; color: #f5f5f5; }
+:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; border-radius: 6px; }
+select option { background: #2c2c2f; color: #ffffff; }
 
 @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 .skeleton {

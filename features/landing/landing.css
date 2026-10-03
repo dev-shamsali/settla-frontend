@@ -1,6 +1,6 @@
 /* Scoped to the landing page only. Transform/opacity animations only; everything decorative is disabled for reduced motion. */
 .landing {
-  --l-bg: #050505;
+  --l-bg: #28282b;
   --l-border: rgba(255, 255, 255, 0.12);
   --l-border-strong: rgba(255, 255, 255, 0.18);
   --l-ok: #5fbf8a;
@@ -17,13 +17,13 @@
 .l-bg__poster {
   position: absolute; inset: 0;
   background:
-    radial-gradient(60% 50% at 70% 18%, rgba(255, 255, 255, 0.10), transparent 70%),
+    radial-gradient(60% 50% at 70% 18%, rgba(255, 255, 255, 0.12), transparent 70%),
     radial-gradient(50% 45% at 12% 85%, rgba(255, 255, 255, 0.05), transparent 70%),
-    linear-gradient(180deg, #0a0a0a 0%, #050505 60%, #080808 100%);
+    linear-gradient(180deg, #333336 0%, #28282b 60%, #2e2e31 100%);
 }
 .l-bg__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 900ms ease-out; will-change: opacity; }
 .l-bg__video[data-ready="true"] { opacity: 0.58; }
-.l-bg__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0.32) 45%, rgba(0, 0, 0, 0.5) 100%); }
+.l-bg__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.10) 55%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 45%, rgba(0, 0, 0, 0.34) 100%); }
 .l-bg__grain {
   position: absolute; inset: 0; opacity: 0.03;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
@@ -35,10 +35,10 @@
 .l-reveal.is-visible { opacity: 1; transform: none; }
 
 /* ---- glass (used sparingly) ---- */
-.l-glass { background: rgba(18, 18, 18, 0.55); border: 1px solid var(--l-border); } /* translucent, NO blur: backdrop-filter over the scrubbed video cost ~10ms/frame */
+.l-glass { background: rgba(70, 70, 75, 0.5); border: 1px solid var(--l-border); } /* translucent, NO blur: backdrop-filter over the scrubbed video cost ~10ms/frame */
 .l-glass--blur { -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); } /* used on the single hero card only */
-.l-nav { background: rgba(5, 5, 5, 0.78); border-bottom: 1px solid var(--l-border); }
-.l-label { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
+.l-nav { background: rgba(36, 36, 39, 0.86); border-bottom: 1px solid var(--l-border); }
+.l-label { font-family: var(--font-mono), ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.78); }
 
 /* ---- status dot + card check sequence ---- */
 @keyframes l-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
@@ -63,3 +63,7 @@
   .l-check { animation: none; opacity: 1; }
   .l-bg__video { display: none; }
 }
+
+/* readability over bright video frames: static shadow, no per-frame cost */
+.landing :is(h1, h2, h3, p, li, dt, dd, span.l-label) { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55), 0 0 2px rgba(0, 0, 0, 0.25); }
+.landing :is(a, button) { text-shadow: none; }

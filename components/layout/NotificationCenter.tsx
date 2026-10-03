@@ -18,7 +18,7 @@ export function NotificationCenter() {
     <>
       <button aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`} onClick={() => setOpen(true)} className="relative rounded-lg p-2 text-ink-soft hover:bg-white/10">
         <Bell className="h-[18px] w-[18px]" />
-        {unread > 0 && <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-burgundy-600 px-1 text-[10px] font-semibold text-white">{unread > 9 ? "9+" : unread}</span>}
+        {unread > 0 && <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-white px-1 text-[10px] font-semibold text-black">{unread > 9 ? "9+" : unread}</span>}
       </button>
       <Dialog open={open} onClose={() => setOpen(false)} title="Notifications" drawer>
         {!data?.items.length ? <EmptyState title="All clear" body="Escalations, approvals, failed actions and integration problems will appear here." /> : (

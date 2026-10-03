@@ -15,11 +15,11 @@ export function ResolutionCard() {
       </div>
 
       <div className="mt-5 border-t border-white/10 pt-5">
-        <div className="text-xs text-white/50">Payment issue detected</div>
+        <div className="text-xs text-white/70">Payment issue detected</div>
         <div className="mt-1 text-3xl font-light tracking-tight tabular-nums">₹3,499</div>
         <dl className="mt-3 space-y-1.5 text-sm">
-          <div className="flex justify-between"><dt className="text-white/55">Payment</dt><dd className="text-[var(--l-ok)]">Received</dd></div>
-          <div className="flex justify-between"><dt className="text-white/55">Order</dt><dd className="text-[var(--l-warn)]">Not created</dd></div>
+          <div className="flex justify-between"><dt className="text-white/70">Payment</dt><dd className="text-[var(--l-ok)]">Received</dd></div>
+          <div className="flex justify-between"><dt className="text-white/70">Order</dt><dd className="text-[var(--l-warn)]">Not created</dd></div>
         </dl>
       </div>
 
@@ -30,7 +30,7 @@ export function ResolutionCard() {
       </ol>
 
       <a href="/login" className="mt-6 flex w-full items-center justify-center rounded-full border border-white/20 py-2.5 text-sm text-white transition-colors hover:bg-white/10">Review case</a>
-      <p className="mt-3 text-center text-[11px] text-white/40">Sample data for illustration</p>
+      <p className="mt-3 text-center text-[11px] text-white/65">Sample data for illustration</p>
     </aside>
   );
 }

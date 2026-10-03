@@ -6,9 +6,9 @@ import { Loader2 } from "lucide-react";
 /* ---------- Button ---------- */
 type BtnVariant = "primary" | "secondary" | "ghost" | "danger" | "outline";
 const btnStyles: Record<BtnVariant, string> = {
-  primary: "bg-burgundy-600 text-white hover:brightness-110 shadow-sm shadow-burgundy-900/20",
+  primary: "bg-white text-black hover:brightness-110 shadow-sm shadow-burgundy-900/20",
   secondary: "bg-white/10 text-ink hover:bg-white/15",
-  outline: "border hairline bg-white/[0.05] text-ink hover:bg-white/[0.05]",
+  outline: "border hairline bg-white/[0.05] text-ink hover:bg-white/10",
   ghost: "text-ink-soft hover:bg-white/10",
   danger: "bg-bad text-white hover:brightness-110",
 };

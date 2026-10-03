@@ -27,7 +27,7 @@ export function Hero() {
             <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2" aria-label="Capabilities">
               {SERVICES.map((s) => <li key={s} className="l-label"><span aria-hidden="true">/ </span>{s}</li>)}
             </ul>
-            <p className="mt-6 max-w-md text-xs text-white/45">Built for payment operations, customer support, and high-volume commerce.</p>
+            <p className="mt-6 max-w-md text-xs text-white/65">Built for payment operations, customer support, and high-volume commerce.</p>
           </Reveal>
         </div>
         <Reveal delay={200} className="lg:justify-self-end"><ResolutionCard /></Reveal>

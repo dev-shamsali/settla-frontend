@@ -99,15 +99,15 @@ export function Analytics() {
   const [days, setDays] = useState(30);
   const s = useQuery({ queryKey: ["summary", "full", days], queryFn: () => analyticsApi.summary(days) });
   const t = useQuery({ queryKey: ["series", days], queryFn: () => analyticsApi.series(Math.min(days, 90)) });
-  const axis = { stroke: "#8f8f8f", fontSize: 11, tickLine: false, axisLine: false } as const;
+  const axis = { stroke: "#b4b4ba", fontSize: 11, tickLine: false, axisLine: false } as const;
   return (
     <div><PageHeader title="Analytics" subtitle="Outcomes, speed and money. Only measured values; nothing is estimated except where labelled." actions={<Select aria-label="Window" className="w-36" value={days} onChange={(e) => setDays(Number(e.target.value))}>{[7, 30, 90].map((d) => <option key={d} value={d}>Last {d} days</option>)}</Select>} />
       {s.error ? <Panel><ErrorState error={s.error} onRetry={() => s.refetch()} /></Panel> : s.data && (
         <>
           <Panel strong className="mb-5"><div className="grid grid-cols-2 gap-6 md:grid-cols-4"><Stat label="Cases" value={s.data.casesTotal} /><Stat label="Autonomous rate" value={`${s.data.autonomousResolutionRate}%`} tone="ok" /><Stat label="Avg resolution" value={ms(s.data.avgResolutionMs)} /><Stat label="Recovered" value={inr(s.data.recoveredRevenue)} tone="ok" /><Stat label="Refunded" value={inr(s.data.refundedRevenue)} /><Stat label="Escalations" value={s.data.escalations} /><Stat label="Failed actions" value={s.data.failedActions} /><Stat label="Hours saved" value={s.data.agentHoursSaved} sub="est. 12 min / autonomous case" /></div></Panel>
           <div className="grid gap-5 md:grid-cols-2">
-            <Panel><PanelHeader title="Cases per day" /><div className="h-56"><ResponsiveContainer><BarChart data={t.data ?? []}><CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} /><XAxis dataKey="date" tickFormatter={(x: string) => x.slice(5)} {...axis} /><YAxis {...axis} width={30} allowDecimals={false} /><Tooltip /><Bar dataKey="cases" fill="#d0606f" radius={[4, 4, 0, 0]} /><Bar dataKey="autonomous" fill="#7a3a45" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div></Panel>
-            <Panel><PanelHeader title="Avg resolution (s)" /><div className="h-56"><ResponsiveContainer><LineChart data={(t.data ?? []).map((p) => ({ ...p, sec: Math.round(p.avgResolutionMs / 1000) }))}><CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} /><XAxis dataKey="date" tickFormatter={(x: string) => x.slice(5)} {...axis} /><YAxis {...axis} width={30} /><Tooltip /><Line dataKey="sec" stroke="#d0606f" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div></Panel>
+            <Panel><PanelHeader title="Cases per day" /><div className="h-56"><ResponsiveContainer><BarChart data={t.data ?? []}><CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} /><XAxis dataKey="date" tickFormatter={(x: string) => x.slice(5)} {...axis} /><YAxis {...axis} width={30} allowDecimals={false} /><Tooltip /><Bar dataKey="cases" fill="#f2f2f4" radius={[4, 4, 0, 0]} /><Bar dataKey="autonomous" fill="#6e6e76" radius={[4, 4, 0, 0]} /></BarChart></ResponsiveContainer></div></Panel>
+            <Panel><PanelHeader title="Avg resolution (s)" /><div className="h-56"><ResponsiveContainer><LineChart data={(t.data ?? []).map((p) => ({ ...p, sec: Math.round(p.avgResolutionMs / 1000) }))}><CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} /><XAxis dataKey="date" tickFormatter={(x: string) => x.slice(5)} {...axis} /><YAxis {...axis} width={30} /><Tooltip /><Line dataKey="sec" stroke="#f2f2f4" strokeWidth={2} dot={false} /></LineChart></ResponsiveContainer></div></Panel>
           </div>
         </>
       )}

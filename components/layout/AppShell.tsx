@@ -17,12 +17,13 @@ import { NotificationCenter } from "./NotificationCenter";
 import { ModeSwitch } from "./ModeSwitch";
 import { UserMenu } from "./UserMenu";
 import { Skeleton } from "@/components/ui/primitives";
+import { LogoMark } from "@/components/ui/Logo";
 
 function Brand() {
   return (
     <Link href="/dashboard" className="flex items-center gap-2.5 px-2">
-      <span aria-hidden className="flex h-8 w-8 items-center justify-center rounded-lg bg-burgundy-600 font-display text-lg text-cream">S</span>
-      <span className="font-display text-xl tracking-tight text-cream">Settla</span>
+      <LogoMark size={32} />
+      <span className="text-[17px] font-medium tracking-tight text-white">Settla</span>
     </Link>
   );
 }

@@ -20,7 +20,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
         <h1 className="font-display text-3xl">Something went wrong</h1>
         <p className="mt-2 max-w-md text-sm text-ink-muted">This page failed to load. Nothing was changed. If the app was just updated, reloading fixes it. {error.digest && <span className="font-mono text-xs">ref {error.digest}</span>}</p>
         <div className="mt-5 flex justify-center gap-2">
-          <button onClick={reset} className="rounded-lg bg-burgundy-600 px-4 py-2 text-sm font-medium text-white hover:brightness-110">Try again</button>
+          <button onClick={reset} className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black hover:brightness-110">Try again</button>
           <button onClick={() => window.location.reload()} className="rounded-lg border hairline px-4 py-2 text-sm text-ink hover:bg-white/10">Reload page</button>
         </div>
       </div>

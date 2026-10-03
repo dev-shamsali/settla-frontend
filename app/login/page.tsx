@@ -9,6 +9,7 @@ import { authApi } from "@/services";
 import { tokenStore } from "@/services/apiClient";
 import { useAppDispatch, authActions } from "@/store";
 import { Button, Field, Input } from "@/components/ui/primitives";
+import { LogoMark } from "@/components/ui/Logo";
 
 const schema = z.object({ email: z.string().min(1, "Email is required").email("Enter a valid email"), password: z.string().min(1, "Password is required") });
 type F = z.infer<typeof schema>;
@@ -33,7 +34,7 @@ export default function LoginPage() {
   return (
     <main id="main" className="grid min-h-screen lg:grid-cols-2">
       <section className="glass-dark relative hidden flex-col justify-between p-12 lg:flex">
-        <Link href="/" className="flex items-center gap-2.5"><span className="flex h-9 w-9 items-center justify-center rounded-lg bg-burgundy-600 font-display text-xl text-cream">S</span><span className="font-display text-2xl text-cream">Settla</span></Link>
+        <Link href="/" className="flex items-center gap-2.5"><LogoMark size={36} /><span className="text-xl font-medium tracking-tight text-white">Settla</span></Link>
         <div><p className="font-display text-4xl leading-tight text-cream">Rhea finds it.<br />Rhea fixes it.<br />Rhea checks it.<br />Rhea closes it.</p><p className="mt-5 max-w-sm text-sm text-cream/60">And knows exactly when to call a human.</p></div>
         <p className="text-xs text-cream/40">Money debited, no order — settled end to end.</p>
       </section>

@@ -10,8 +10,8 @@ import { Badge, Button, EmptyState, ErrorState, PageHeader, Panel, PanelHeader, 
 import { useToast } from "@/components/ui/Toast";
 import { ago, inr, ms, titleCase } from "@/lib/utils";
 
-const C = { brand: "#d0606f", brandSoft: "#7a3a45", ok: "#6fcf97", warn: "#e2ad4f", ink: "#4a4039", grid: "rgba(255,255,255,.08)" };
-const axis = { stroke: "#8f8f8f", fontSize: 11, tickLine: false, axisLine: false } as const;
+const C = { brand: "#f2f2f4", brandSoft: "#6e6e76", ok: "#6fcf97", warn: "#e2ad4f", ink: "#4a4039", grid: "rgba(255,255,255,.08)" };
+const axis = { stroke: "#b4b4ba", fontSize: 11, tickLine: false, axisLine: false } as const;
 const tip = { contentStyle: { background: "rgba(20,20,20,.96)", color: "#f5f5f5", border: "1px solid rgba(255,255,255,.14)", borderRadius: 10, fontSize: 12 } };
 const d = (s: string) => s.slice(5);
 
