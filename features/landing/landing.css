@@ -21,7 +21,7 @@
     radial-gradient(50% 45% at 12% 85%, rgba(255, 255, 255, 0.05), transparent 70%),
     linear-gradient(180deg, #333336 0%, #28282b 60%, #2e2e31 100%);
 }
-.l-bg__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 900ms ease-out; will-change: opacity; }
+.l-bg__video { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 900ms ease-out; }
 .l-bg__video[data-ready="true"] { opacity: 0.58; }
 .l-bg__overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.10) 55%, rgba(0, 0, 0, 0) 100%), linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 45%, rgba(0, 0, 0, 0.34) 100%); }
 .l-bg__grain {
