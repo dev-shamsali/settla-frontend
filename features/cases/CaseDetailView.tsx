@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 import { casesApi } from "@/services";
 import { Badge, DemoBadge, ErrorState, KV, Panel, PanelHeader, RiskBadge, Skeleton, StatusBadge } from "@/components/ui/primitives";
-import { CaseTimeline, CustomerCard, OrderCard, PaymentCard, PolicyChecks, RheaPanel, TraceView } from "./CaseParts";
+import { CaseTimeline, CustomerCard, InvestigationProgress, OrderCard, PaymentCard, PolicyChecks, RheaPanel, TraceView } from "./CaseParts";
+import { AutomationPanel } from "./AutomationPanel";
 import { CaseActions } from "./CaseActions";
 import { dateTime, inr, ms, pct, titleCase } from "@/lib/utils";
 
@@ -13,6 +14,8 @@ export function CaseDetailView({ id }: { id: string }) {
   if (q.isLoading) return <div className="space-y-4"><Skeleton className="h-16" /><div className="grid gap-4 lg:grid-cols-3"><Skeleton className="h-96 lg:col-span-2" /><Skeleton className="h-96" /></div></div>;
   if (q.error || !q.data) return <Panel><ErrorState error={q.error} onRetry={() => q.refetch()} /></Panel>;
   const d = q.data, c = d.case, dec = d.decisions[0];
+  const pendingApproval = d.approvals.some((a) => a.status === "PENDING");
+  const approvedApproval = d.approvals.some((a) => a.status === "APPROVED");
   const hasNeedsHuman = d.approvals.some((a) => a.status === "PENDING") || d.escalations.some((e) => e.status === "OPEN" || e.status === "IN_PROGRESS");
 
   return (
@@ -24,10 +27,13 @@ export function CaseDetailView({ id }: { id: string }) {
         <div><div className="eyebrow">Risk</div><RiskBadge level={c.risk?.level} score={c.risk?.score} /></div>
         <div><div className="eyebrow">Confidence</div><span className="tabular text-sm font-medium">{pct(c.confidence)}</span></div>
         <div><div className="eyebrow">Amount</div><span className="tabular text-sm font-medium">{inr(c.amount)}</span></div>
+        <div><div className="eyebrow">Human approval</div><Badge tone={pendingApproval ? "warn" : approvedApproval ? "ok" : "neutral"}>{pendingApproval ? "Required: pending" : approvedApproval ? "Approved" : c.amount > 5000 ? "Required to act" : "Not required"}</Badge></div>
         <div><div className="eyebrow">Resolution</div><span className="tabular text-sm font-medium">{ms(c.resolutionMs)}</span></div>
         {c.demo && <DemoBadge />}
         <div className="ml-auto text-right text-xs text-ink-muted"><div>Opened {dateTime(c.createdAt)}</div><div className="font-mono">trace {c.traceId?.slice(0, 12)}</div></div>
       </header>
+
+      <InvestigationProgress status={c.status} />
 
       {hasNeedsHuman && (
         <div role="status" className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-2xl border border-warn/30 bg-warn-bg px-5 py-3 text-sm text-warn">
@@ -66,6 +72,7 @@ export function CaseDetailView({ id }: { id: string }) {
               </ul>
             )}
           </Panel>
+          <Panel><AutomationPanel caseId={c._id} /></Panel>
           <Panel><PanelHeader title="Communication" />
             {d.messages.length === 0 ? <p className="text-sm text-ink-muted">No outbound messages.</p> : d.messages.map((m) => <div key={m._id} className="flex justify-between py-1.5 text-sm"><span>{titleCase(m.channel)} · {m.template.replace(/_/g, " ")}</span><span className="text-xs text-ink-muted">{m.status} · {dateTime(m.createdAt)}</span></div>)}
           </Panel>

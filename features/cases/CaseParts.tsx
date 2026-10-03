@@ -160,3 +160,32 @@ export function OrderCard({ d }: { d: CaseDetail }) {
   );
 }
 export const Legal = Scale; export const SirenIcon = Siren; export { dateTime };
+
+/* ---------- Investigation progress (what stage is this case in?) ---------- */
+const STAGES: { label: string; states: string[] }[] = [
+  { label: "Observe", states: ["NEW", "OBSERVING"] },
+  { label: "Investigate", states: ["INVESTIGATING"] },
+  { label: "Decide", states: ["DECIDING"] },
+  { label: "Human / approval", states: ["AWAITING_APPROVAL", "ESCALATED"] },
+  { label: "Act", states: ["EXECUTING", "WAITING_REVERSAL"] },
+  { label: "Verify", states: ["VERIFYING"] },
+  { label: "Done", states: ["RESOLVED", "REFUNDED", "CLOSED"] },
+];
+export function InvestigationProgress({ status }: { status: string }) {
+  const idx = STAGES.findIndex((s) => s.states.includes(status));
+  const failed = status === "FAILED";
+  return (
+    <ol aria-label="Investigation progress" className="mb-5 flex flex-wrap gap-x-1 gap-y-2 text-xs">
+      {STAGES.map((s, i) => {
+        const done = !failed && idx > i;
+        const current = !failed && idx === i;
+        return (
+          <li key={s.label} aria-current={current ? "step" : undefined} className={cn("flex items-center gap-1.5 rounded-full border px-3 py-1", current ? "border-burgundy-500 bg-burgundy-50 font-semibold text-burgundy-700" : done ? "hairline bg-white/60 text-ink-soft" : "hairline text-ink-muted")}>
+            {done ? <Check className="h-3 w-3 text-ok" aria-label="completed" /> : <span className="tabular w-3 text-center">{i + 1}</span>}{s.label}
+          </li>
+        );
+      })}
+      {failed && <li className="rounded-full bg-bad-bg px-3 py-1 font-semibold text-bad">Failed</li>}
+    </ol>
+  );
+}

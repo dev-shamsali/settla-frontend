@@ -1,7 +1,7 @@
 import { api } from "./apiClient";
 import type {
   Approval, AuditLog, CaseDetail, CaseRow, Customer, Escalation, ExecutionMode, IntegrationRow, KnowledgeHit, Notification, OrderRow, Page, PaymentRow,
-  PolicyDef, Summary, TenantInfo, TimePoint, Trace, User, DecisionDoc, Role,
+  PolicyDef, Summary, AutomationRun, AutomationProposal, BackendDecision, TenantInfo, TimePoint, Trace, User, DecisionDoc, Role,
 } from "@/types/api";
 
 type Q = Record<string, string | number | boolean | undefined | null>;
@@ -63,4 +63,11 @@ export const demoApi = { run: (scenario?: string) => api<{ result: { status: str
 export const adminApi = {
   tenants: () => api<{ id: string; name: string; slug: string; status: string; executionMode: string }[]>("/admin/tenants"),
   system: () => api<{ uptime: number; node: string; mode: string; llm: string; redis: boolean; db: string; memoryMb: number }>("/admin/system"),
+};
+
+export const automationApi = {
+  runs: (caseId: string) => api<AutomationRun[]>(`/cases/${caseId}/automation`),
+  proposal: (caseId: string) => api<{ proposal: AutomationProposal; backendDecision: BackendDecision }>(`/cases/${caseId}/automation/proposal`),
+  dispatch: (caseId: string, proposal: AutomationProposal, key: string) =>
+    api<{ runId: string; status: string; correlationId: string; n8nExecutionId: string | null; externalService: string; idempotentReplay?: boolean }>(`/cases/${caseId}/automation`, { method: 'POST', body: { proposal }, idempotencyKey: key }),
 };

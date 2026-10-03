@@ -97,7 +97,7 @@ export function Landing() {
 
         <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8"><Reveal><div className="glass-strong rounded-3xl p-10 text-center sm:p-14"><h2 className="font-display text-3xl sm:text-4xl">Let Rhea take the next one.</h2><p className="mx-auto mt-3 max-w-xl text-ink-soft">Start in recommend-only mode and move to autonomous when you trust the evidence.</p><Link href="/login" className="mt-7 inline-flex h-11 items-center gap-2 rounded-lg bg-burgundy-600 px-6 text-sm font-medium text-white hover:bg-burgundy-700">Open the console <ArrowRight className="h-4 w-4" /></Link></div></Reveal></section>
       </main>
-      <footer className="border-t hairline px-5 py-8 text-center text-xs text-ink-muted"><Link href="/privacy" className="hover:text-ink">Privacy</Link> · <Link href="/terms" className="hover:text-ink">Terms</Link> · © Settla</footer>
+      <footer className="border-t hairline px-5 py-8 text-center text-xs text-ink-muted"><Link href="/presentation" className="hover:text-ink">Presentation</Link> · <Link href="/privacy" className="hover:text-ink">Privacy</Link> · <Link href="/terms" className="hover:text-ink">Terms</Link> · © Settla</footer>
     </div>
   );
 }

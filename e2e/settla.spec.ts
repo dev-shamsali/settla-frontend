@@ -135,3 +135,36 @@ test("19. regression: escalated case detail renders with banner and case file", 
   await expect(page.getByText("Needs a human.")).toBeVisible();
   await expect(page.getByText("Escalation case file")).toBeVisible();
 });
+
+test("20. automation: Rhea proposes, backend allows, n8n step runs, history + progress + approval chip visible", async ({ page }) => {
+  await login(page);
+  await page.getByRole("button", { name: /Run demo case/ }).first().click();
+  await expect(page).toHaveURL(/\/cases\/[\w-]+/, { timeout: 30_000 });
+  await expect(page.getByRole("list", { name: "Investigation progress" })).toBeVisible();
+  await expect(page.getByText("Human approval").first()).toBeVisible();
+  await expect(page.getByText("Automation (n8n)")).toBeVisible();
+  await expect(page.getByText("Rhea proposes", { exact: true })).toBeVisible();
+  await expect(page.getByText("Backend verdict", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Run investigation step" }).click();
+  await expect(page.getByRole("dialog", { name: "Run investigation step" })).toContainText("Read-only investigation");
+  await page.getByRole("button", { name: "Send to n8n" }).click();
+  await expect(page.getByText("n8n Succeeded")).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByText("payment_lookup").first()).toBeVisible();
+  await expect(page.getByText(/corr corr_/).first()).toBeVisible();
+});
+
+test("21. presentation: keyboard navigation, speech notes toggle, covers problem and n8n", async ({ page }) => {
+  await page.goto("/presentation");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("money debited, no order");
+  await expect(page.getByText("What to say · slide 1")).toBeVisible();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("A customer pays");
+  await expect(page.getByText("Here is the problem.")).toBeVisible();
+  await page.keyboard.press("s");
+  await expect(page.getByText("What to say · slide 2")).toHaveCount(0);
+  await page.keyboard.press("s");
+  await page.getByRole("button", { name: /Go to slide 8: n8n integration/ }).click();
+  await expect(page.getByText("SETTLA - PAYMENT RESOLUTION").first()).toBeVisible();
+  await page.keyboard.press("End");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Let Rhea take the next one");
+});

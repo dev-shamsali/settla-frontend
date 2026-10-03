@@ -70,3 +70,11 @@ export interface Notification { _id: string; kind: string; title: string; body: 
 export interface IntegrationRow { type: string; enabled: boolean; mode: string; configured: boolean; keyId?: string; lastTest?: { ok: boolean; message?: string; at: string } }
 export interface PolicyDef { id: string; key: string; version: string; description: string; rules: { id: string; description: string; severity: string }[] }
 export interface KnowledgeHit { docId: string; title: string; kind: string; text: string; score: number }
+
+export interface AutomationProposal { caseId: string; decision: string; action: string; riskLevel: string; requiresHumanApproval: boolean }
+export interface BackendDecision { allowed: boolean; code: string; reasons: string[]; backend: { amount: number; riskScore: number; riskLevel: RiskLevel; autoLimit: number; requiresApproval: boolean } }
+export interface AutomationRun {
+  _id: string; caseId: string; correlationId: string; requestedAction: string; actor: string; actorType: string; status: 'DISPATCHED' | 'SUCCEEDED' | 'FAILED' | 'BLOCKED' | 'VERIFICATION_FAILED';
+  externalService: string | null; n8nExecutionId?: string | null; workflow: { name: string }; backendDecision: BackendDecision; rheaProposal?: AutomationProposal;
+  verification?: { passed: boolean; checks: { name: string; passed: boolean }[] }; error?: { code: string; message: string }; createdAt: string; finishedAt?: string;
+}
