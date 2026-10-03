@@ -6,10 +6,10 @@ import { Loader2 } from "lucide-react";
 /* ---------- Button ---------- */
 type BtnVariant = "primary" | "secondary" | "ghost" | "danger" | "outline";
 const btnStyles: Record<BtnVariant, string> = {
-  primary: "bg-burgundy-600 text-white hover:bg-burgundy-700 shadow-sm shadow-burgundy-900/20",
-  secondary: "bg-ink text-cream hover:bg-ink-soft",
-  outline: "border hairline bg-white/60 text-ink hover:bg-white",
-  ghost: "text-ink-soft hover:bg-black/5",
+  primary: "bg-burgundy-600 text-white hover:brightness-110 shadow-sm shadow-burgundy-900/20",
+  secondary: "bg-white/10 text-ink hover:bg-white/15",
+  outline: "border hairline bg-white/[0.05] text-ink hover:bg-white/[0.05]",
+  ghost: "text-ink-soft hover:bg-white/10",
   danger: "bg-bad text-white hover:brightness-110",
 };
 export const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: BtnVariant; size?: "sm" | "md" | "lg"; loading?: boolean }>(
@@ -34,7 +34,7 @@ export const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttrib
 
 /* ---------- Badges ---------- */
 const tones = {
-  neutral: "bg-black/5 text-ink-soft",
+  neutral: "bg-white/[0.07] text-ink-soft",
   ok: "bg-ok-bg text-ok",
   warn: "bg-warn-bg text-warn",
   bad: "bg-bad-bg text-bad",
@@ -90,7 +90,7 @@ export function PageHeader({ title, subtitle, actions }: { title: string; subtit
 }
 
 /* ---------- Form ---------- */
-const field = "w-full rounded-lg border hairline bg-white/80 px-3 text-sm text-ink placeholder:text-ink-muted/70 focus-visible:border-burgundy-500";
+const field = "w-full rounded-lg border hairline bg-white/[0.05] px-3 text-sm text-ink placeholder:text-ink-muted/70 focus-visible:border-burgundy-500";
 export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(function Input({ className, ...p }, ref) {
   return <input ref={ref} className={cn(field, "h-9", className)} {...p} />;
 });

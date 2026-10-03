@@ -46,7 +46,7 @@ export function AutomationPanel({ caseId }: { caseId: string }) {
     <div>
       <PanelHeader title="Automation (n8n)" hint="Rhea proposes · the backend decides · n8n executes approved, non-financial steps" />
       {proposal.isLoading ? <Skeleton className="h-24" /> : proposal.error ? <ErrorState error={proposal.error} onRetry={() => proposal.refetch()} /> : p && verdict && (
-        <div className="rounded-xl border hairline bg-white/60 p-4">
+        <div className="rounded-xl border hairline bg-white/[0.05] p-4">
           <div className="grid gap-x-8 sm:grid-cols-2">
             <dl><KV k="Rhea proposes" v={<span className="font-mono text-xs">{p.proposal.action}</span>} /><KV k="Proposed risk" v={p.proposal.riskLevel.toUpperCase()} /><KV k="Rhea says approval needed" v={p.proposal.requiresHumanApproval ? "Yes" : "No"} /></dl>
             <dl><KV k="Backend verdict" v={<Badge tone={verdict.allowed ? "ok" : "warn"}>{verdict.allowed ? "Allowed" : titleCase(verdict.code)}</Badge>} /><KV k="Backend risk" v={`${verdict.backend.riskLevel} · ${verdict.backend.riskScore.toFixed(2)}`} />
@@ -79,7 +79,7 @@ export function AutomationPanel({ caseId }: { caseId: string }) {
 
       <Dialog open={open} onClose={() => setOpen(false)} title="Run investigation step"
         footer={<><Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button><Button loading={dispatch.isPending} onClick={() => dispatch.mutate()}>Send to n8n</Button></>}>
-        <dl className="divide-y hairline rounded-xl border hairline bg-white/60 px-4 text-sm">
+        <dl className="divide-y hairline rounded-xl border hairline bg-white/[0.05] px-4 text-sm">
           <div className="flex justify-between py-2.5"><dt className="text-ink-muted">Step</dt><dd className="font-mono text-xs">{p?.proposal.action}</dd></div>
           <div className="flex justify-between py-2.5"><dt className="text-ink-muted">Type</dt><dd>Read-only investigation (no money moves)</dd></div>
           <div className="flex justify-between py-2.5"><dt className="text-ink-muted">Executed by</dt><dd>n8n · SETTLA - PAYMENT RESOLUTION</dd></div>

@@ -15,7 +15,7 @@ export function DataTable<T extends { _id: string }>({ cols, rows, loading, erro
   if (!rows?.length) return <EmptyState {...empty} />;
   return (
     <div>
-      <div className="max-h-[68vh] overflow-auto rounded-xl border hairline bg-white/50">
+      <div className="max-h-[68vh] overflow-auto rounded-xl border hairline bg-white/[0.05]">
         <table className="w-full min-w-[640px] border-separate border-spacing-0 text-sm">
           <thead>
             <tr>

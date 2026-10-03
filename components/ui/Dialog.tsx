@@ -31,14 +31,14 @@ export function Dialog({ open, onClose, title, children, footer, drawer, wide }:
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-[80] flex" role="presentation">
-      <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={onClose} aria-hidden />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" onClick={onClose} aria-hidden />
       <div
         ref={ref} role="dialog" aria-modal="true" aria-label={title} tabIndex={-1}
         className={cn("glass-strong relative z-10 flex max-h-[92vh] flex-col outline-none", drawer ? "ml-auto h-full w-full max-w-md rounded-none sm:rounded-l-2xl" : cn("m-auto w-[calc(100vw-2rem)] rounded-2xl", wide ? "max-w-2xl" : "max-w-lg"))}
       >
         <div className="flex items-center justify-between border-b hairline px-5 py-4">
           <h2 className="font-display text-lg text-ink">{title}</h2>
-          <button aria-label="Close" onClick={onClose} className="rounded-md p-1 text-ink-muted hover:bg-black/5"><X className="h-4 w-4" /></button>
+          <button aria-label="Close" onClick={onClose} className="rounded-md p-1 text-ink-muted hover:bg-white/10"><X className="h-4 w-4" /></button>
         </div>
         <div className="overflow-y-auto px-5 py-4">{children}</div>
         {footer && <div className="flex flex-wrap justify-end gap-2 border-t hairline px-5 py-3">{footer}</div>}
@@ -55,7 +55,7 @@ export function FinancialConfirm({ open, onClose, onConfirm, loading, rows, titl
   return (
     <Dialog open={open} onClose={onClose} title={title}
       footer={<><Button variant="outline" onClick={onClose}>Cancel</Button><Button variant={danger ? "danger" : "primary"} loading={loading} onClick={onConfirm}>{confirmLabel}</Button></>}>
-      <dl className="divide-y hairline rounded-xl border hairline bg-white/60 px-4">
+      <dl className="divide-y hairline rounded-xl border hairline bg-white/[0.05] px-4">
         {rows.map((r) => <div key={r.k} className="flex justify-between gap-4 py-2.5 text-sm"><dt className="text-ink-muted">{r.k}</dt><dd className="text-right font-medium text-ink">{r.v}</dd></div>)}
       </dl>
       <p className="mt-3 text-xs text-ink-muted">The backend re-derives the amount from the payment gateway, enforces policy and permissions, and verifies the result. This screen only reports what the backend confirms.</p>

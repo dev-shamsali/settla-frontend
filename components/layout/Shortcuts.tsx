@@ -47,7 +47,7 @@ export function ShortcutsHelp() {
       <ul className="divide-y hairline">
         {SHORTCUTS.map((s) => (
           <li key={s.keys} className="flex items-center justify-between py-2.5 text-sm">
-            <span>{s.label}</span><span className="flex gap-1">{s.keys.split(" ").map((k) => <kbd key={k} className="rounded border hairline bg-white/70 px-1.5 py-0.5 font-mono text-xs">{k}</kbd>)}</span>
+            <span>{s.label}</span><span className="flex gap-1">{s.keys.split(" ").map((k) => <kbd key={k} className="rounded border hairline bg-white/[0.05] px-1.5 py-0.5 font-mono text-xs">{k}</kbd>)}</span>
           </li>
         ))}
       </ul>

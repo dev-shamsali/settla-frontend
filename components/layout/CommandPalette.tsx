@@ -53,7 +53,7 @@ function PaletteInner() {
   const go = (c: Cmd) => { close(); router.push(c.to); };
   return (
     <div className="fixed inset-0 z-[85] flex items-start justify-center px-4 pt-[12vh]" role="presentation">
-      <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={close} aria-hidden />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" onClick={close} aria-hidden />
       <div role="dialog" aria-modal="true" aria-label="Command palette" className="glass-strong relative w-full max-w-xl overflow-hidden rounded-2xl"
         onKeyDown={(e) => {
           if (e.key === "Escape") close();

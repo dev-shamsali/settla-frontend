@@ -180,7 +180,7 @@ export function InvestigationProgress({ status }: { status: string }) {
         const done = !failed && idx > i;
         const current = !failed && idx === i;
         return (
-          <li key={s.label} aria-current={current ? "step" : undefined} className={cn("flex items-center gap-1.5 rounded-full border px-3 py-1", current ? "border-burgundy-500 bg-burgundy-50 font-semibold text-burgundy-700" : done ? "hairline bg-white/60 text-ink-soft" : "hairline text-ink-muted")}>
+          <li key={s.label} aria-current={current ? "step" : undefined} className={cn("flex items-center gap-1.5 rounded-full border px-3 py-1", current ? "border-burgundy-500 bg-burgundy-50 font-semibold text-burgundy-700" : done ? "hairline bg-white/[0.05] text-ink-soft" : "hairline text-ink-muted")}>
             {done ? <Check className="h-3 w-3 text-ok" aria-label="completed" /> : <span className="tabular w-3 text-center">{i + 1}</span>}{s.label}
           </li>
         );

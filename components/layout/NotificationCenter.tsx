@@ -16,7 +16,7 @@ export function NotificationCenter() {
   const unread = data?.items.filter((n) => !n.read).length ?? 0;
   return (
     <>
-      <button aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`} onClick={() => setOpen(true)} className="relative rounded-lg p-2 text-ink-soft hover:bg-black/5">
+      <button aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`} onClick={() => setOpen(true)} className="relative rounded-lg p-2 text-ink-soft hover:bg-white/10">
         <Bell className="h-[18px] w-[18px]" />
         {unread > 0 && <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-burgundy-600 px-1 text-[10px] font-semibold text-white">{unread > 9 ? "9+" : unread}</span>}
       </button>
@@ -24,7 +24,7 @@ export function NotificationCenter() {
         {!data?.items.length ? <EmptyState title="All clear" body="Escalations, approvals, failed actions and integration problems will appear here." /> : (
           <ul className="space-y-2">
             {data.items.map((n) => (
-              <li key={n._id} className={cn("rounded-xl border hairline p-3 text-sm", n.read ? "bg-white/40" : "bg-white/90")}>
+              <li key={n._id} className={cn("rounded-xl border hairline p-3 text-sm", n.read ? "bg-white/[0.02] opacity-70" : "bg-white/[0.08]")}>
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <div className="font-medium">{n.title}</div>

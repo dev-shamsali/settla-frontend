@@ -31,9 +31,9 @@ export function Presentation() {
       <header className="flex items-center justify-between px-5 py-3 text-xs text-ink-muted sm:px-8">
         <Link href="/" className="flex items-center gap-2 font-display text-lg text-ink"><span className="flex h-7 w-7 items-center justify-center rounded-md bg-burgundy-600 text-cream">S</span>Settla</Link>
         <div className="flex items-center gap-3">
-          <Link href="/login" className="rounded-md border hairline bg-white/60 px-3 py-1.5 font-medium text-ink hover:bg-white">Open live demo</Link>
-          <button onClick={() => setNotes((v) => !v)} aria-pressed={notes} className="inline-flex items-center gap-1.5 rounded-md border hairline bg-white/60 px-3 py-1.5 hover:bg-white"><MessageSquareText className="h-3.5 w-3.5" aria-hidden />Speech (S)</button>
-          <button onClick={() => void document.documentElement.requestFullscreen?.()} aria-label="Fullscreen (F)" className="rounded-md border hairline bg-white/60 p-1.5 hover:bg-white"><Maximize2 className="h-3.5 w-3.5" /></button>
+          <Link href="/login" className="rounded-md border hairline bg-white/[0.05] px-3 py-1.5 font-medium text-ink hover:bg-white/[0.05]">Open live demo</Link>
+          <button onClick={() => setNotes((v) => !v)} aria-pressed={notes} className="inline-flex items-center gap-1.5 rounded-md border hairline bg-white/[0.05] px-3 py-1.5 hover:bg-white/[0.05]"><MessageSquareText className="h-3.5 w-3.5" aria-hidden />Speech (S)</button>
+          <button onClick={() => void document.documentElement.requestFullscreen?.()} aria-label="Fullscreen (F)" className="rounded-md border hairline bg-white/[0.05] p-1.5 hover:bg-white/[0.05]"><Maximize2 className="h-3.5 w-3.5" /></button>
         </div>
       </header>
 
@@ -55,11 +55,11 @@ export function Presentation() {
       </main>
 
       <footer className="flex items-center justify-between gap-4 px-5 pb-5 sm:px-8">
-        <button onClick={() => go(i - 1)} disabled={i === 0} aria-label="Previous slide" className="rounded-lg border hairline bg-white/60 p-2 hover:bg-white disabled:opacity-40"><ChevronLeft className="h-4 w-4" /></button>
+        <button onClick={() => go(i - 1)} disabled={i === 0} aria-label="Previous slide" className="rounded-lg border hairline bg-white/[0.05] p-2 hover:bg-white/[0.05] disabled:opacity-40"><ChevronLeft className="h-4 w-4" /></button>
         <ol className="flex flex-wrap justify-center gap-1.5" aria-label="Slides">
-          {SLIDES.map((x, n) => <li key={x.id}><button onClick={() => go(n)} aria-label={`Go to slide ${n + 1}: ${x.eyebrow}`} aria-current={n === i ? "step" : undefined} className={cn("h-2 rounded-full transition-all", n === i ? "w-8 bg-burgundy-600" : "w-2 bg-ink/20 hover:bg-ink/40")} /></li>)}
+          {SLIDES.map((x, n) => <li key={x.id}><button onClick={() => go(n)} aria-label={`Go to slide ${n + 1}: ${x.eyebrow}`} aria-current={n === i ? "step" : undefined} className={cn("h-2 rounded-full transition-all", n === i ? "w-8 bg-burgundy-600" : "w-2 bg-ink/20 hover:bg-black/70")} /></li>)}
         </ol>
-        <button onClick={() => go(i + 1)} disabled={i === SLIDES.length - 1} aria-label="Next slide" className="rounded-lg border hairline bg-white/60 p-2 hover:bg-white disabled:opacity-40"><ChevronRight className="h-4 w-4" /></button>
+        <button onClick={() => go(i + 1)} disabled={i === SLIDES.length - 1} aria-label="Next slide" className="rounded-lg border hairline bg-white/[0.05] p-2 hover:bg-white/[0.05] disabled:opacity-40"><ChevronRight className="h-4 w-4" /></button>
       </footer>
     </div>
   );

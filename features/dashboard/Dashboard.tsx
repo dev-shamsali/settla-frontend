@@ -10,9 +10,9 @@ import { Badge, Button, EmptyState, ErrorState, PageHeader, Panel, PanelHeader, 
 import { useToast } from "@/components/ui/Toast";
 import { ago, inr, ms, titleCase } from "@/lib/utils";
 
-const C = { brand: "#8f2f3b", brandSoft: "#e6b4b8", ok: "#3f6b4c", warn: "#b7791f", ink: "#4a4039", grid: "rgba(60,30,25,.1)" };
-const axis = { stroke: "#6f655c", fontSize: 11, tickLine: false, axisLine: false } as const;
-const tip = { contentStyle: { background: "rgba(255,255,255,.96)", border: "1px solid rgba(60,30,25,.12)", borderRadius: 10, fontSize: 12 } };
+const C = { brand: "#d0606f", brandSoft: "#7a3a45", ok: "#6fcf97", warn: "#e2ad4f", ink: "#4a4039", grid: "rgba(255,255,255,.08)" };
+const axis = { stroke: "#8f8f8f", fontSize: 11, tickLine: false, axisLine: false } as const;
+const tip = { contentStyle: { background: "rgba(20,20,20,.96)", color: "#f5f5f5", border: "1px solid rgba(255,255,255,.14)", borderRadius: 10, fontSize: 12 } };
 const d = (s: string) => s.slice(5);
 
 export function Dashboard() {
@@ -78,14 +78,14 @@ export function Dashboard() {
               <Panel className="lg:col-span-3"><PanelHeader title="Escalation reasons" />
                 {s?.escalationReasons.length ? <div style={{ height: Math.max(120, s.escalationReasons.length * 36) }}><ResponsiveContainer><BarChart layout="vertical" data={s.escalationReasons.map((r) => ({ ...r, reason: titleCase(r.reason) }))}><XAxis type="number" hide /><YAxis type="category" dataKey="reason" width={140} {...axis} /><Tooltip {...tip} /><Bar dataKey="count" fill={C.warn} radius={4} /></BarChart></ResponsiveContainer></div> : <p className="py-8 text-center text-sm text-ink-muted">No escalations in this window.</p>}</Panel>
               <Panel className="lg:col-span-3"><PanelHeader title="Cases by status" hint="Payment failure categories surface here as they occur" />
-                {s?.statusBreakdown.length ? <ul className="space-y-2">{s.statusBreakdown.map((b) => <li key={b.status} className="flex items-center gap-3 text-sm"><StatusBadge status={b.status} /><div className="h-1.5 flex-1 rounded bg-black/5"><div className="h-full rounded bg-burgundy-500" style={{ width: `${(b.count / s.casesTotal) * 100}%` }} /></div><span className="tabular w-6 text-right">{b.count}</span></li>)}</ul> : null}</Panel>
+                {s?.statusBreakdown.length ? <ul className="space-y-2">{s.statusBreakdown.map((b) => <li key={b.status} className="flex items-center gap-3 text-sm"><StatusBadge status={b.status} /><div className="h-1.5 flex-1 rounded bg-white/[0.07]"><div className="h-full rounded bg-burgundy-500" style={{ width: `${(b.count / s.casesTotal) * 100}%` }} /></div><span className="tabular w-6 text-right">{b.count}</span></li>)}</ul> : null}</Panel>
             </div>
           )}
 
           <div className="mt-5 grid gap-5 lg:grid-cols-3">
             <Panel className="lg:col-span-2"><PanelHeader title="Recent cases" action={<Link href="/cases" className="text-xs font-medium text-burgundy-600 hover:underline">View all</Link>} />
               {recent.data?.items.length ? <ul className="divide-y hairline">{recent.data.items.map((c) => (
-                <li key={c._id}><Link href={`/cases/${c._id}`} className="flex flex-wrap items-center justify-between gap-2 py-2.5 text-sm hover:bg-black/[0.02]"><span className="flex items-center gap-3"><span className="font-mono text-xs">{c.caseNumber}</span><span>{c.customerName ?? c.paymentId}</span></span><span className="flex items-center gap-3"><span className="tabular">{inr(c.amount)}</span><RiskBadge level={c.risk?.level} /><StatusBadge status={c.status} /></span></Link></li>))}</ul> : <p className="py-6 text-center text-sm text-ink-muted">No cases yet.</p>}</Panel>
+                <li key={c._id}><Link href={`/cases/${c._id}`} className="flex flex-wrap items-center justify-between gap-2 py-2.5 text-sm hover:bg-white/[0.05]"><span className="flex items-center gap-3"><span className="font-mono text-xs">{c.caseNumber}</span><span>{c.customerName ?? c.paymentId}</span></span><span className="flex items-center gap-3"><span className="tabular">{inr(c.amount)}</span><RiskBadge level={c.risk?.level} /><StatusBadge status={c.status} /></span></Link></li>))}</ul> : <p className="py-6 text-center text-sm text-ink-muted">No cases yet.</p>}</Panel>
             <div className="space-y-5">
               <Panel><PanelHeader title="Pending approvals" action={<Link href="/approvals" className="text-xs font-medium text-burgundy-600 hover:underline">Queue</Link>} />
                 {pending.data?.items.length ? <ul className="space-y-2">{pending.data.items.map((a) => <li key={a._id}><Link href="/approvals" className="flex justify-between text-sm"><span>{a.caseNumber} · {titleCase(a.decision)}</span><span className="tabular font-medium">{inr(a.amount)}</span></Link></li>)}</ul> : <p className="text-sm text-ink-muted">Nothing waiting on a human.</p>}</Panel>

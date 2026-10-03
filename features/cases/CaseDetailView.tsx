@@ -50,7 +50,7 @@ export function CaseDetailView({ id }: { id: string }) {
             <Panel><PanelHeader title="Payment" /><PaymentCard d={d} /></Panel>
             <Panel><PanelHeader title="Order & cart" /><OrderCard d={d} /></Panel>
           </div>
-          {c.customerMessage && <Panel><PanelHeader title="Customer message" hint="Treated as untrusted data, never as instructions" /><blockquote className="rounded-lg bg-black/[0.03] p-3 text-sm text-ink-soft">{c.customerMessage}</blockquote></Panel>}
+          {c.customerMessage && <Panel><PanelHeader title="Customer message" hint="Treated as untrusted data, never as instructions" /><blockquote className="rounded-lg bg-white/[0.05] p-3 text-sm text-ink-soft">{c.customerMessage}</blockquote></Panel>}
           <Panel strong><PanelHeader title="Rhea" hint="Structured reasoning: evidence, factors, policy, verification" /><RheaPanel d={d} /></Panel>
           <Panel><PanelHeader title="Timeline" hint={`${d.events.length} events`} /><CaseTimeline events={d.events} /></Panel>
           <div className="grid gap-5 md:grid-cols-2">

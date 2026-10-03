@@ -18,7 +18,7 @@ export function UserMenu() {
     <div className="flex items-center gap-2">
       <div className="hidden text-right leading-tight md:block"><div className="text-xs font-medium">{user?.name}</div><div className="text-[10px] text-ink-muted">{user && titleCase(user.role)}</div></div>
       <span aria-hidden className="flex h-8 w-8 items-center justify-center rounded-full bg-burgundy-100 text-xs font-semibold text-burgundy-700">{user?.name?.[0]}</span>
-      <button onClick={out} aria-label="Sign out" className="rounded-lg p-2 text-ink-soft hover:bg-black/5"><LogOut className="h-4 w-4" /></button>
+      <button onClick={out} aria-label="Sign out" className="rounded-lg p-2 text-ink-soft hover:bg-white/10"><LogOut className="h-4 w-4" /></button>
     </div>
   );
 }

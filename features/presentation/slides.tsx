@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 export interface Slide { id: string; eyebrow: string; title: string; body: ReactNode; speech: string }
 
 const Box = ({ children, tone = "plain" }: { children: ReactNode; tone?: "plain" | "brand" | "dark" | "ok" }) => (
-  <div className={`rounded-xl border px-4 py-3 text-center text-sm font-medium ${tone === "brand" ? "border-burgundy-500/40 bg-burgundy-50 text-burgundy-800" : tone === "dark" ? "border-transparent bg-ink text-cream" : tone === "ok" ? "border-ok/30 bg-ok-bg text-ok" : "hairline bg-white/70"}`}>{children}</div>
+  <div className={`rounded-xl border px-4 py-3 text-center text-sm font-medium ${tone === "brand" ? "border-burgundy-500/40 bg-burgundy-50 text-burgundy-800" : tone === "dark" ? "border-white/20 bg-white/10 text-ink" : tone === "ok" ? "border-ok/30 bg-ok-bg text-ok" : "hairline bg-white/[0.05]"}`}>{children}</div>
 );
 const Arrow = () => <div aria-hidden className="py-1 text-center text-ink-muted">↓</div>;
 const List = ({ items }: { items: ReactNode[] }) => <ul className="space-y-3 text-lg text-ink-soft">{items.map((x, i) => <li key={i} className="flex gap-3"><span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-burgundy-500" /><span>{x}</span></li>)}</ul>;
